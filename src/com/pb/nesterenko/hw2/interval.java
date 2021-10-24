@@ -17,7 +17,7 @@ public class interval {
                 } else if (first >= 36 && first <= 50) {
                     System.out.print("num is three reriod");
                 } else if (first <= 51 && first >= 100) {
-                    System.out.print("Num is four period")
+                    System.out.print("Num is four period");
                 }
     }
 }
