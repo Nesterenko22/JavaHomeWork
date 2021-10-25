@@ -24,15 +24,17 @@ public class bingo {
                 System.out.println("Мое число больше.");
             else
                 System.out.println("Вы угадали");
+            if (UnknownNumber == 101 ){
+                break;
+            }
+            System.out.println("Пока пока))))");
 
         }
         while (UserNumber != UnknownNumber);
-        System.out.println("Количество попыток: " +TrysCount);
-
-
-
+        System.out.println("Поздравляем, Вы угадали с" + TrysCouunt + "попытки");
 
     }
 
 
-}
+
+    }
