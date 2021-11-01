@@ -15,10 +15,9 @@ public class CapitalLetter {
                assert outString != null;
                 outString= outString.substring(0,i+1)+s.substring(i+1,i+2).toUpperCase()+s.substring(i+2);
             } else if(i==0){
-                outString= s.substring(0,1).toUpperCase()+s.substring(1);
+                 outStr = str.substring(0, 1).toUpperCase() + str.substring(1);
             }
         }
-
 
 
     }
