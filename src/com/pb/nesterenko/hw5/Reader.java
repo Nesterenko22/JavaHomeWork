@@ -6,6 +6,7 @@ public class Reader {
    public int faculty;
    public int dateBirth;
    public int phoneNumber;
+
     public Reader(String fullName, int libraryCardName, int faculty, int dateBirth, int dateBirth, int phoneNumber){
         this.fullName = fullName;
         this.libraryCardName = libraryCardName;
@@ -19,5 +20,11 @@ public class Reader {
     }
     public void returnBook(String fullName, String name, String athorBook, String date ){
         System.out.println(fullName + "повернув книгу" + name + athorBook + date);
+    }
+    public void takeBook(int faculty,int phoneNumber, int dateBirth, int libraryCardName){
+        System.out.println(faculty + 'взяв книгу' + phoneNumber + dateBirth + libraryCardName);
+    }
+    public void returnBook(String fullName, int libraryCardName, String nameBook){
+        System.out.println(fullName + 'повернув книгу' + nameBook + libraryCardName);
     }
 }
