@@ -1,8 +1,18 @@
 package com.pb.nesterenko.hw6;
 
 public class veterinarian {
-    public static void main(String[] args) {
 
+    private String name;
 
+    public veterinarian(String name) {
+        this.name = name;
+    }
+
+    public veterinarian() {
+    }
+
+    public void treatAnimal(Animal animal) {
+        System.out.println("ветеринар " + name + " лікує тваринку " + animal.getName() +
+                " на " + animal.getLocation() + " яке полюбляє " + animal.getFood());
     }
 }
