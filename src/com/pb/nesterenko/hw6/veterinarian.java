@@ -11,7 +11,7 @@ public class veterinarian {
     public veterinarian() {
     }
 
-    public void treatAnimal(Animal animal) {
+    public void treatAnimal(animal animal) {
         System.out.println("ветеринар " + name + " лікує тваринку " + animal.getName() +
                 " на " + animal.getLocation() + " яке полюбляє " + animal.getFood());
     }

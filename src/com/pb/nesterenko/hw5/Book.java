@@ -1,38 +1,32 @@
 package com.pb.nesterenko.hw5;
 
+
 public class Book {
-    private String nameBook;
-    private String athorBook;
-    private int yearPublishing;
 
-    public String getNameBook(){
-        return nameBook;
+    private final String name;
+    private final String autor;
+    private final int year;
+
+    public Book(String name, String autor, int year) {
+        this.name = name;
+        this.autor = autor;
+        this.year = year;
     }
 
-    public void setNameBook(String nameBook){
-        this.nameBook = nameBook;
+    public String getName() {
+        return name;
     }
 
-    public String getAthorBook() {
-        return athorBook;
+    public String getAutor() {
+        return autor;
     }
 
-    public void setAthorBook(String athorBook) {
-        this.athorBook = athorBook;
+    public int getYear() {
+        return year;
     }
 
-    public int getYearPublishing() {
-        return yearPublishing;
-    }
 
-    public void setYearPublishing(int yearPublishing) {
-        this.yearPublishing = yearPublishing;
+    public String getInfo() {
+        return name + " (" + autor + " " + year + " г.)";
     }
-
-    public Book(String nameBook, String athorBook, int yearPublishing){
-        this.nameBook = nameBook;
-        this.athorBook = athorBook;
-        this.yearPublishing = yearPublishing;
-    }
-
 }

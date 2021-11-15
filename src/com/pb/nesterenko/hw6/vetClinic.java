@@ -4,26 +4,26 @@ import java.lang.reflect.Method;
 
 public class vetClinic {
     public static void main(String[] args) throws Exception {
-        Cat cat = new Cat("Мурчик", "Білий");
+        cat cat = new cat("Мурчик", "Білий");
         cat.setFood("Молоко і мясо");
         cat.setLocation("Подвіря");
 
-        Cat cat2 = new Cat("Том", "Смугастик");
+        cat cat2 = new cat("Том", "Смугастик");
         cat2.setFood("Молоко і мясо");
         cat2.setLocation("Будинок");
 
-        Horse horse = new Horse("Буцефал", 89);
+        horse horse = new horse("Буцефал", 89);
         horse.setFood("Овес і яблока");
         horse.setLocation("Іподром");
 
-        Dog dog = new Dog("Мухтар", "Бульдог");
+        dog dog = new dog("Мухтар", "Бульдог");
         dog.setFood("Каша і кісточка");
         dog.setLocation("Парк");
 
-        Class clazzCat = Cat.class;
-        Class clazzDog = Dog.class;
+        Class clazzCat = cat.class;
+        Class clazzDog = dog.class;
 
-        Animal[] animals = new Animal[] {cat, cat2, horse, dog};
+        animal[] animals = new animal[] {cat, cat2, horse, dog};
 
         Class clazz = Class.forName("hw6.Veterinarian");
 
@@ -32,14 +32,14 @@ public class vetClinic {
         Constructor constr = clazz.getConstructor(String.class);
         Object vet = constr.newInstance("Айболіт");
 
-        Method treatAnimal = clazz.getMethod("treatAnimal", Animal.class);
+        Method treatAnimal = clazz.getMethod("treatAnimal", animal.class);
 
-        for(Animal animal: animals) {
+        for(animal animal: animals) {
             treatAnimal.invoke(vet, animal);
         }
 
 
-        Class catClazz = Cat.class;
+        Class catClazz = cat.class;
         Class catClazz2 = cat2.getClass();
     }
 }

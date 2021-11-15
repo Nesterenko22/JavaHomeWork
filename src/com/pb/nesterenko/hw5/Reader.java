@@ -1,30 +1,99 @@
 package com.pb.nesterenko.hw5;
 
 public class Reader {
-   public String fullName;
-   public int libraryCardName;
-   public int faculty;
-   public int dateBirth;
-   public int phoneNumber;
 
-    public Reader(String fullName, int libraryCardName, int faculty, int dateBirth, int dateBirth, int phoneNumber){
-        this.fullName = fullName;
-        this.libraryCardName = libraryCardName;
+    private String fio;
+    private int libraryCard;
+    private String faculty;
+    private LocalDate dateOfBirth;
+    private String phone;
+
+    public Reader(String fio, int libraryCard, String faculty, LocalDate dateOfBirth, String phone) {
+        this.fio = fio;
+        this.libraryCard = libraryCard;
         this.faculty = faculty;
-        this.dateBirth = dateBirth;
-        this.phoneNumber = phoneNumber;
+        this.dateOfBirth = dateOfBirth;
+        this.phone = phone;
+    }
 
+    public String getFio() {
+        return fio;
     }
-    public void takeBook(String fullName,String name){
-        System.out.println(fullName + 'Взяв книгу' + name);
+
+    public int getLibraryCard() {
+        return libraryCard;
     }
-    public void returnBook(String fullName, String name, String athorBook, String date ){
-        System.out.println(fullName + "повернув книгу" + name + athorBook + date);
+
+    public String getFaculty() {
+        return faculty;
     }
-    public void takeBook(int faculty,int phoneNumber, int dateBirth, int libraryCardName){
-        System.out.println(faculty + 'взяв книгу' + phoneNumber + dateBirth + libraryCardName);
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
     }
-    public void returnBook(String fullName, int libraryCardName, String nameBook){
-        System.out.println(fullName + 'повернув книгу' + nameBook + libraryCardName);
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setLibraryCard(int libraryCard) {
+        this.libraryCard = libraryCard;
+    }
+
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void takeBook(int bookCount) {
+        System.out.println(fio + " взял " + bookCount + " книг(и)");
+    }
+
+    public void takeBook(String... bookNames) {
+        System.out.println(fio + " взял книги: ");
+        for (String name: bookNames) {
+            System.out.print(name + " ");
+        }
+        System.out.println();
+    }
+
+    public void takeBook(Book... books) {
+        System.out.println(fio + " взял книги: ");
+        for (Book book: books) {
+            System.out.println(book.getName() + " (" + book.getAutor() + " " + book.getYear() +")");
+        }
+    }
+
+    public void returnBook(int bookCount) {
+        System.out.println(fio + " вернул " + bookCount + " книг(и)");
+    }
+
+    public void returnBook(String... bookNames) {
+        System.out.println(fio + " вернул книги: ");
+        for (String name: bookNames) {
+            System.out.print(name + " ");
+        }
+        System.out.println();
+    }
+
+    public void returnBook(Book... books) {
+        System.out.println(fio + " вернул книги: ");
+        for (Book book: books) {
+            System.out.println(book.getInfo());
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Reader{" +
+                "fio='" + fio + '\'' +
+                ", libraryCard=" + libraryCard +
+                ", faculty='" + faculty + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", phone='" + phone + '\'' +
+                '}';
     }
 }
