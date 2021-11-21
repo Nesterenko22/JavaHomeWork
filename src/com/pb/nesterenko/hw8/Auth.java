@@ -3,6 +3,8 @@ package com.pb.nesterenko.hw8;
 import com.pb.nesterenko.hw7.Clothes;
 import com.pb.nesterenko.hw7.Skirt;
 
+import java.util.regex.Pattern;
+
 public class Auth {
 
     public int login;
@@ -18,29 +20,7 @@ public class Auth {
         this.confirmPassword = confirmPassword;
     }
 
-    public void SingIn(password) {
-
-        System.out.println("Введіть ваш пароль");
-
-
-        public void singIn (String password) throws WrongPasswordException {
-            if (password != password) {
-                password = password;
-            } else {
-                String needs = password;
-                throw new WrongPasswordException(needs);
-            }
-        }
-
-        public int login () {
-            return login;
-        }
-
-        public String password () {
-            return password;
-        }
-    }
-}
+      }}
 
     public void SingUp(login,password,confirmPassword) {
 
@@ -49,12 +29,32 @@ public class Auth {
 
 
         public void singUp(int login) throws WrongLoginException {
-            if(login != login) {
-                login = login;
-            } else {
-                String needs = login;
-                throw new WrongPasswordException.(needs);
+            if(Pattern.matches([a-zA-Z_0-9] {5,20}login)) {
+        } else {
+        throw new WrongLoginException();
+        }
+
             }
+public void SingIn(password) throws WrongPasswordException {
+
+        System.out.println("Введіть ваш пароль");
+
+
+public void singIn (String password) throws WrongPasswordException {
+        if (Pattern.matches('[a-zA-Z_0-9] {5}'password)) {
+        password = password;
+        } else {
+        throw new WrongPasswordException();
+        }
+        }
+
+public int login () {
+        return login;
+        }
+
+public String password () {
+        return password;
+        }
         }
 
 
