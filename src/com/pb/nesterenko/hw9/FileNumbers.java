@@ -4,16 +4,17 @@ package com.pb.nesterenko.hw9;
 import java.io.File;
 
 public class FileNumbers {
-    public static void createNumbersFile() throws Exception {
+    public static void main(String [] argjs)
+    void createNumbersFile() {
 
         try (Writer writer = new FileWriter(fileName:"F://java/numbers.txt") {
             int[][] array = new int[10][10];
             for (int i = 0; i < array.length; i++,System.out.println()){
-                for (int i = 0; i < array.length; i++ {
-                    array[i][i] = ((int)(Math.random() * 99 * 1));
-                    System.out.println(array[i][i] + ' ');
+                for (int j = 0; j < array.length; j++) {
+                    array[i][j] = ((int)(Math.random() * 99 * 1));
+                    System.out.println(array[i][j] + ' ');
                     writer.newLine();
-                    writer.write(array[i][i] + ' ');
+                    writer.write(array[i][j] + ' ');
 
                 }
 
