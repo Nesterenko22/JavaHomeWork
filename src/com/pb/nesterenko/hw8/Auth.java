@@ -1,61 +1,36 @@
 package com.pb.nesterenko.hw8;
 
-import com.pb.nesterenko.hw7.Clothes;
-import com.pb.nesterenko.hw7.Skirt;
-
-import java.util.regex.Pattern;
-
 public class Auth {
 
-    public int login;
-    public String password;
-   public String confirmPassword;
+    private String login = "admin";
+    private String password = "Pa55w0rd";
 
-    public Auth(int login) {
+    /**
+     * Registration
+     */
+    public void signUp(String login, String password, String confirmPassword) throws WrongLoginException, WrongPasswordException {
+        if (login == null || !login.matches("[a-zA-Z0-9]{5,20}")) {
+            throw new WrongLoginException("Login length must be between 5 and 20 symbols, contains only letters and numbers");
+        }
+        if (password == null || !password.matches("[a-zA-Z0-9_]{5,}")) {
+            throw new WrongPasswordException("Password length must be >= 5 symbols, contains only letters, numbers and symbol \"_\"");
+        }
+        if (!password.equals(confirmPassword)) {
+            throw new WrongPasswordException("Password not confirmed");
+        }
         this.login = login;
-    }
-
-    public Auth(String password, String confirmPassword) {
         this.password = password;
-        this.confirmPassword = confirmPassword;
     }
 
-      }}
-
-    public void SingUp(login,password,confirmPassword) {
-
-        System.out.println("Введіть ваш логын");
+    /**
+     * Login as registered user
+     */
+    public void signIn(String login, String password) throws WrongLoginException {
+        if (!this.login.equals(login)) {
+            throw new WrongLoginException("User not found");
         }
-
-
-        public void singUp(int login) throws WrongLoginException {
-            if(Pattern.matches([a-zA-Z_0-9] {5,20}login)) {
-        } else {
-        throw new WrongLoginException();
+        if (!this.password.equals(password)) {
+            throw new WrongLoginException("User not found");
         }
-
-            }
-public void SingIn(password) throws WrongPasswordException {
-
-        System.out.println("Введіть ваш пароль");
-
-
-public void singIn (String password) throws WrongPasswordException {
-        if (Pattern.matches('[a-zA-Z_0-9] {5}'password)) {
-        password = password;
-        } else {
-        throw new WrongPasswordException();
-        }
-        }
-
-public int login () {
-        return login;
-        }
-
-public String password () {
-        return password;
-        }
-        }
-
-
-
+    }
+}
