@@ -8,7 +8,7 @@ public class NumBox <T extends Number>{
 
     private final T[] number;
 
-    public NumBox(T[] number) {
+    public NumBox() {
         this.number = number;
     }
     public NumBox(int num){
@@ -29,7 +29,7 @@ public class NumBox <T extends Number>{
     public T get(int index) {
         return number.get(index);
     }
-    public void add() throws IndexException {
+    public void add(int i, float v) throws IndexException {
         if (i == number.length) {
             throw new WrongLoginException("масив запоолнен");
     public int length() {
@@ -69,4 +69,7 @@ public class NumBox <T extends Number>{
     }
 
 }
+
+    public void add() {
+    }
 
