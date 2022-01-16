@@ -4,33 +4,34 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Client {
-        public static void main(String[] args) throws Exception {
-            System.out.println("Клиент стартовал");
-            String serverIp = "127.0.0.1";
-            int serverPort = 1234;
-            System.out.println("Соединяемся с сервером " + serverIp + ":" + serverPort);
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_RESET = "\u001B[0m";
 
-            Socket server = new Socket(serverIp, serverPort);
-            BufferedReader inServer = new BufferedReader(new InputStreamReader(server.getInputStream()));
-            PrintWriter outServer = new PrintWriter(server.getOutputStream(), true);
-            BufferedReader inConsole = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) throws Exception {
+        Socket socket = new Socket("localhost", 1234);
+        Scanner scan = new Scanner(System.in);
 
-            String dataFromUser, dataFromServer;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
 
-            while ((dataFromUser = inConsole.readLine()) != null) {
-                outServer.println(dataFromUser);
-                dataFromServer = inServer.readLine();
-                System.out.println(dataFromServer);
-                if ("exit".equalsIgnoreCase(dataFromUser)) {
-                    break;
-                }
+        System.out.println("Введите сообщение: ");
+        new Thread(() -> {
+            while (true) {
+                String message = scan.nextLine();
+                writer.println(message);
             }
-            outServer.close();
-            inServer.close();
-            outServer.close();
-            server.close();
+        }).start();
+
+        String fromServer;
+        while ((fromServer = reader.readLine()) != null) {
+            System.out.println(ANSI_GREEN + fromServer + ANSI_RESET);
+            System.out.println("Введите сообщение: ");
         }
+
+        System.out.println("Соединение с сервером прервано");
+        System.exit(0);
     }
 }

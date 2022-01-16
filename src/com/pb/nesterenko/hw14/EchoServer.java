@@ -1,63 +1,86 @@
 package com.pb.nesterenko.hw14;
 
 import javax.jnlp.FileContents;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class EchoServer {
-
     public static void main(String[] args) throws Exception {
         int port = 1234;
         ServerSocket serverSocket = new ServerSocket(port);
-        System.out.println("Сервер запущен на порту : " + port);
 
+        ExecutorService pool = Executors.newFixedThreadPool(10);
 
+        List<ClientHandler> handlers = Collections.synchronizedList(new ArrayList<>());
+
+        System.out.println("Сервер запустился на порту " + port);
+
+        while (true) {
+            Socket socket = serverSocket.accept();
+            ClientHandler handler = new ClientHandler(socket, handlers);
+            handlers.add(handler);
+            System.out.println("Клиент " + handler.getCurrentIndex() + " подключился");
+            pool.submit(handler);
+        }
+    }
+
+    static class ClientHandler implements Runnable {
+
+        private static final AtomicInteger INDEX = new AtomicInteger(0);
+
+        private final Socket socket;
+        private final BufferedReader reader;
+        private final PrintWriter writer;
+        private final List<ClientHandler> clientHandlers;
+        private final int currentIndex;
+
+        public int getCurrentIndex() {
+            return currentIndex;
+        }
+
+        public ClientHandler(Socket socket, List<ClientHandler> clientHandlers) {
+            this.currentIndex = INDEX.incrementAndGet();
+            this.socket = socket;
+            this.clientHandlers = clientHandlers;
+            try {
+                this.reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                this.writer = new PrintWriter(socket.getOutputStream(), true);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        }
 
         @Override
         public void run() {
             try {
-                System.out.println(Thread.currentThread().getName() + ": Получен запрос от клиента");
-
-                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-
-
-                String headerLine;
-                while((headerLine = in.readLine()).length() != 0){
-                    System.out.println(headerLine);
+                String message;
+                while((message = reader.readLine()) != null) {
+                    for(ClientHandler handler: clientHandlers) {
+                        handler.sendMessage(message, currentIndex);
+                    }
                 }
+                clientHandlers.remove(this);
+                System.out.println("Клиент " + currentIndex + " отключился");
+                socket.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
 
-
-                StringBuilder payload = new StringBuilder();
-                while(in.ready()){
-                    payload.append((char) in.read());
-                }
-                System.out.println("\nТело запроса: " + payload);
-
-
-                int sec = 10;
-                System.out.println("Ждем " + sec + " секунд имитируя долгу обработку");
-                Thread.sleep(sec * 1000);
-
-
-            out.write("HTTP/1.0 200 OK\r\n");
-            out.write("Content-Type: text/html; charset=utf-8\r\n");
-            out.write("\r\n");
-            out.write("<html><body><h1>");
-            out.write("Ответ от сервера, текущая дата: ");
-            out.write(LocalTime.now().toString());
-            out.write("</h1></body></html>");
-
-            System.out.println("Закрываем соединение с клиентом");
-            out.close();
-            in.close();
-            clientSocket.close();
+        public void sendMessage(String message, int clientIndex) {
+            try {
+                writer.println("Клиент " + clientIndex + ": " + message);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
-}
 }
